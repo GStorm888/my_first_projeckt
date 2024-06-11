@@ -13,7 +13,7 @@ class Game():
                                                      self.WINDOW_YEIGHT))
         self.clock = pygame.time.Clock()
         self.running = True
-        self.plyer = Player("C:\Users\RobotComp.ru\OneDrive\Документы\projeckt\projeckt\images\green_body.png")
+        self.player = Player("images\green_body.png", (0, 0))
 
 
     def process_input(self):
@@ -24,7 +24,7 @@ class Game():
         self.plyer.process_input()
 
     def update_game_state(self):
-        pass
+        self.plyer.update()
 
     def render(self):
         self.main_window.fill(pygame.color.THECOLORS(["white"]))
@@ -40,4 +40,4 @@ class Game():
         pygame.quit()
 
 game = Game()
-game.game_loop
+game.main_loop

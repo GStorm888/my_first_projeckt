@@ -3,7 +3,7 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, image_file, position):
         pygame.sprite.Sprite.__init__(self)
-        self.image_file = pygame.image.load(image_file).convert_alpha()
+        self.image = pygame.image.load(image_file).convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
         self.move_x = 0
         self.move_y = 0
