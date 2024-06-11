@@ -2,7 +2,7 @@ import pygame
 import random
 from different_functions import get_distance 
 import math
-from game import Game
+# from game import Game
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, image_file, position):
@@ -13,10 +13,12 @@ class Player(pygame.sprite.Sprite):
         self.x = random.randint(100, 400)
         self.y = random.randint(100, 400)
         self.speed = 8
-        mass = 28
+        self.mass = 28
         
     def render(self, window):
         window.blit(self.image, self.rect)
+        player = pygame.draw.circle(self.surface, self.outlineColor, self.x, 20)
+        return player
 
     def process_input(self):
         pass
@@ -29,9 +31,6 @@ class Player(pygame.sprite.Sprite):
 
     def set_position(self, position):
         self.position = position
-
-    def move(self, direction):
-        self.__rotate(self.up_image)
 
     def eating_food(self, food):
         for eat in food:
@@ -47,10 +46,8 @@ class Player(pygame.sprite.Sprite):
         buf_x = self.speed*normalized
         buf_y = 0
         if rotation < 0:
-            vy = -self.speed + math.fabs(buf_x)
+            buf_y = -self.speed + math.fabs(buf_x)
         else:
-            vy = self.speed - math.fabs(vx)
-        tmpX = self.x + vx
-        tmpY = self.y + vy
-        self.x = tmpX
-        self.y = tmpY
+            buf_y = self.speed - math.fabs(buf_x)
+        self.x = self.x + buf_x
+        self.y = self.y + buf_y

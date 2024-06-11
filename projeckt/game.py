@@ -10,7 +10,7 @@ class Game():
         self.FPS = 60
 
         self.main_window = pygame.display.set_mode((self.WINDOW_WIDTH,
-                                                     self.WINDOW_YEIGHT))
+                                                     self.WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.running = True
         self.player = Player("images\green_body.png", (0, 0))
