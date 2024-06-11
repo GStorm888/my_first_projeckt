@@ -21,6 +21,7 @@ class Game():
             if event.type == pygame.QUIT:
                 self.running = False
                 return
+        self.plyer.process_input()
 
     def update_game_state(self):
         pass
