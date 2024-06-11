@@ -16,3 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.midtop = pos
         if self.punching:
             self.rect.move_ip(10, 10)
+
+    def update(self):
+        self.rect.x += self.move_x
+        self.rect.y += self.move_y 
