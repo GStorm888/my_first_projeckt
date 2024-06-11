@@ -6,7 +6,7 @@ class Game():
         pygame.init()
 
         self.WINDOW_WIDTH = 800
-        self.WINDOW_YEIGHT = 800
+        self.WINDOW_HEIGHT = 800
         self.FPS = 60
 
         self.main_window = pygame.display.set_mode((self.WINDOW_WIDTH,
