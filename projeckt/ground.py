@@ -1,6 +1,6 @@
 import pygame
 
-class Grid:
+class Ground:
 
     def __init__(self, surface, camera):
         self.surface = surface

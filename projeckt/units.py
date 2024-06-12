@@ -2,48 +2,31 @@ import pygame
 import random
 from different_functions import get_distance 
 import math
-# from game import Game
+from cell import Cell
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self, image_file, position):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(image_file).convert_alpha()
-        self.up_image = self.image
-        self.rect = self.image.get_rect(topleft=position)
-        self.name = "Agar.io Game"
 
+class Player():
+    def __init__(self, surface, camera, name = "Denis"):
+        self.surface = surface
+        self.camera = camera
+
+        self.speed = 8
+        self.mass = 18
 
         self.x = random.randint(100, 400)
         self.y = random.randint(100, 400)
 
-        self.speed = 8
-        self.mass = 28
+        color = random.choice(Cell.CELL_COLORS)
+
 
     def render(self, window):
         window.blit(self.image, self.rect)
         player = pygame.draw.circle(self.surface, self.outlineColor, self.x, 20)
         
-    def draw(self):
-        zoom = self.camera.zoom
-        x, y = self.camera.x, self.camera.y
-        center = self.x * zoom + x, self.y * zoom + y
-        pygame.draw.circle(self.surface, self.outlineColor, center, int((self.mass/2 + 3)*zoom))
-        pygame.draw.circle(self.surface, self.color, center, int(self.mass/2*zoom))
 
-
-
-    # def process_input(self):
-    #     pass
-
-    # def update(self):
-    #     self.rect.x += self.move_x
-    #     self.rect.y += self.move_y 
-
-    # def set_field(self, field):
-    #     self.field = field
-
-    # def set_position(self, position):
-    #     self.position = position
+    def update(self):
+        self.rect.x += self.move_x
+        self.rect.y += self.move_y 
 
     def eating_food(self, food):
         for eat in food:
@@ -65,6 +48,14 @@ class Player(pygame.sprite.Sprite):
             buf_y = self.speed - math.fabs(buf_x)
         self.x = self.x + buf_x
         self.y = self.y + buf_y
+
+    def draw(self):
+        zoom = self.camera.zoom
+        x, y = self.camera.x, self.camera.y
+        center = self.x * zoom + x, self.y * zoom + y
+        pygame.draw.circle(self.surface, self.outlineColor, center, int((self.mass/2 + 3)*zoom))
+        pygame.draw.circle(self.surface, self.color, center, int(self.mass/2*zoom))
+
 
 
 class Object:

@@ -22,4 +22,4 @@ class Camera:
 
     def update(self, target):
         self.zoom = 100 / (target.mass) + 0.3
-        self.centre(position)
+        self.centre(list)

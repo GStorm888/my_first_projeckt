@@ -13,7 +13,7 @@ class Game():
         
         self.clock = pygame.time.Clock()
         self.running = True
-        self.player = Player("images\green_body.png", (0, 0))
+        self.player = Player(0)
 
 
     def process_input(self):
@@ -23,6 +23,17 @@ class Game():
                 return
         self.player.process_input()
 
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWNE:
+                    if event.key == pygame.K_SPACE:
+                        del(camera)
+                    if event.key == pygame.K_w:
+                        list.split()
+                if event.type == pygame.QUIT:
+                    pygame.QUIT
+                    quit()
+
     def update_game_state(self):
         self.player.update()
 
@@ -31,28 +42,25 @@ class Game():
         self.player.render(settings.MAIN_WINDOW)
         pygame.display.update() 
 
-
-
     def main_loop(self):
-        while self.running:
-            self.process_input()
-            self.update_game_state()
-            self.render()
-            self.clock.tick(self.FPS)
-        pygame.quit()
+        camera = Camera()
+        ground = Ground(settings.MAIN_WINDOW, camera)
+        cell = Cell(settings.MAIN_WINDOW, camera, 2000)
+        player = Player(settings.MAIN_WINDOW, camera, "Player")
 
+        object = Object()
+        object.add(ground)
+        object.add(cell)
+        object.add(player)   
 
-    camera = Camera()
-    ground = Ground(settings.MAIN_WINDOW, camera)
-    cell = Cell(settings.MAIN_WINDOW, camera, 2000)
-    player = Player(settings.MAIN_WINDOW, camera, "GeoVas")
+        self.process_input
 
-    object = Object()
-    object.add(ground)
-    object.add(cell)
-    object.add(player)
-
-
+        list.move()
+        list.eating_food(list(cell))
+        camera.update(list)
+        settings.MAIN_WINDOW.fill((242,251,255))
+        object.paint()
+        pygame.display.flip()
 
 game = Game()
 game.main_loop
