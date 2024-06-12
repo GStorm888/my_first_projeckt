@@ -14,14 +14,18 @@ class Player(pygame.sprite.Sprite):
         self.y = random.randint(100, 400)
         self.speed = 8
         self.mass = 28
+
         
     def render(self, window):
         window.blit(self.image, self.rect)
         player = pygame.draw.circle(self.surface, self.outlineColor, self.x, 20)
         return player
+        
+        
 
     def process_input(self):
         pass
+
     def update(self):
         self.rect.x += self.move_x
         self.rect.y += self.move_y 
@@ -40,7 +44,8 @@ class Player(pygame.sprite.Sprite):
 
     def move(self):
         x, y, = pygame.mouse.get_pos()
-        math.atan2(y - float(self.WINDOW_HEIGHT)/2, x - float(self.WINDOW_WIDTH)/2)
+        math.atan2(y - float(self.WINDOW_HEIGHT)/2,
+                    x - float(self.WINDOW_WIDTH)/2)
         rotation *= 180/math.pi
         normalized = (90 - math.fabs(rotation))/90
         buf_x = self.speed*normalized
@@ -51,3 +56,15 @@ class Player(pygame.sprite.Sprite):
             buf_y = self.speed - math.fabs(buf_x)
         self.x = self.x + buf_x
         self.y = self.y + buf_y
+
+
+class Object:
+    def __init__(self):
+        self.objects = []
+
+    def add(self, object):
+        self.objects.append(object)
+
+    def render(self):
+        for object in self.objects:
+            object.draw()

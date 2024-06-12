@@ -16,6 +16,7 @@ class Game():
         self.player = Player("images\green_body.png", (0, 0))
 
 
+
     def process_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
