@@ -1,20 +1,19 @@
 import pygame
 from units import Player
+from cell import Cell
+from ground import Ground
+import settings
+from camera import Camera
+from units import Object
 class Game():
 
     def __init__(self):
         pygame.init()
-
-        self.WINDOW_WIDTH = 800
-        self.WINDOW_HEIGHT = 800
-        self.FPS = 60
-
-        self.main_window = pygame.display.set_mode((self.WINDOW_WIDTH,
-                                                     self.WINDOW_HEIGHT))
+        pygame.display.set_caption("Agar.io Mini")
+        
         self.clock = pygame.time.Clock()
         self.running = True
         self.player = Player("images\green_body.png", (0, 0))
-
 
 
     def process_input(self):
@@ -22,15 +21,17 @@ class Game():
             if event.type == pygame.QUIT:
                 self.running = False
                 return
-        self.plyer.process_input()
+        self.player.process_input()
 
     def update_game_state(self):
-        self.plyer.update()
+        self.player.update()
 
     def render(self):
-        self.main_window.fill(pygame.color.THECOLORS(["white"]))
-        self.plyer.render(self.main_window)
-        pygame.display.update()
+        settings.MAIN_WINDOW.fill(pygame.color.THECOLORS(["white"]))
+        self.player.render(settings.MAIN_WINDOW)
+        pygame.display.update() 
+
+
 
     def main_loop(self):
         while self.running:
@@ -39,6 +40,19 @@ class Game():
             self.render()
             self.clock.tick(self.FPS)
         pygame.quit()
+
+
+    camera = Camera()
+    ground = Ground(settings.MAIN_WINDOW, camera)
+    cell = Cell(settings.MAIN_WINDOW, camera, 2000)
+    player = Player(settings.MAIN_WINDOW, camera, "GeoVas")
+
+    object = Object()
+    object.add(ground)
+    object.add(cell)
+    object.add(player)
+
+
 
 game = Game()
 game.main_loop

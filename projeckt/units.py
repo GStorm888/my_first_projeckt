@@ -10,31 +10,40 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(image_file).convert_alpha()
         self.up_image = self.image
         self.rect = self.image.get_rect(topleft=position)
+        self.name = "Agar.io Game"
+
+
         self.x = random.randint(100, 400)
         self.y = random.randint(100, 400)
+
         self.speed = 8
         self.mass = 28
 
-        
     def render(self, window):
         window.blit(self.image, self.rect)
         player = pygame.draw.circle(self.surface, self.outlineColor, self.x, 20)
-        return player
         
-        
+    def draw(self):
+        zoom = self.camera.zoom
+        x, y = self.camera.x, self.camera.y
+        center = self.x * zoom + x, self.y * zoom + y
+        pygame.draw.circle(self.surface, self.outlineColor, center, int((self.mass/2 + 3)*zoom))
+        pygame.draw.circle(self.surface, self.color, center, int(self.mass/2*zoom))
 
-    def process_input(self):
-        pass
 
-    def update(self):
-        self.rect.x += self.move_x
-        self.rect.y += self.move_y 
 
-    def set_field(self, field):
-        self.field = field
+    # def process_input(self):
+    #     pass
 
-    def set_position(self, position):
-        self.position = position
+    # def update(self):
+    #     self.rect.x += self.move_x
+    #     self.rect.y += self.move_y 
+
+    # def set_field(self, field):
+    #     self.field = field
+
+    # def set_position(self, position):
+    #     self.position = position
 
     def eating_food(self, food):
         for eat in food:
@@ -44,7 +53,7 @@ class Player(pygame.sprite.Sprite):
 
     def move(self):
         x, y, = pygame.mouse.get_pos()
-        math.atan2(y - float(self.WINDOW_HEIGHT)/2,
+        rotation = math.atan2(y - float(self.WINDOW_HEIGHT)/2,
                     x - float(self.WINDOW_WIDTH)/2)
         rotation *= 180/math.pi
         normalized = (90 - math.fabs(rotation))/90
@@ -65,6 +74,6 @@ class Object:
     def add(self, object):
         self.objects.append(object)
 
-    def render(self):
+    def draw(self):
         for object in self.objects:
             object.draw()
