@@ -5,3 +5,7 @@ def get_distance(a, b):
     if a[1]-b[1] < 0: different_y = (a[1]-b[1]) * -1
     else: different_y = (a[0]-b[0])
     return ((different_x**2)+(different_y**2))**(0.5)
+
+def fabs(number):
+    if number < 0: number = number * -1
+    return number
